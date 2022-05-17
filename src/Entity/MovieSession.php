@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MovieSessionRepository;
+use DateInterval;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovieSessionRepository::class)]
@@ -23,17 +25,39 @@ class MovieSession
     #[ORM\JoinColumn(nullable: false)]
     private $film;
 
+    public function getFormatTimeEnd(): string
+    {
+        $duration = DateInterval::createFromDateString("+{$this->getFilmDuration()} minutes");
+        $dateTimeEnd = $this->dateTimeStart->add($duration);
+        return $dateTimeEnd->format('H:i');
+    }
+
+    public function getFilmDuration(): int
+    {
+        return $this->getFilm()->getDuration();
+    }
+
+    public function getFormatTimeStart(): string
+    {
+        return $this->dateTimeStart->format('H:i');
+    }
+
+    public function getFormatDateStart(): string
+    {
+        return $this->dateTimeStart->format('d F Y');
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateTimeStart(): ?\DateTimeImmutable
+    public function getDateTimeStart(): ?DateTimeImmutable
     {
         return $this->dateTimeStart;
     }
 
-    public function setDateTimeStart(\DateTimeImmutable $dateTimeStart): self
+    public function setDateTimeStart(DateTimeImmutable $dateTimeStart): self
     {
         $this->dateTimeStart = $dateTimeStart;
 

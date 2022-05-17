@@ -12,7 +12,10 @@
     <h1> Movie List ✅</h1>
 
     {% for movieSession in movieSessions %}
-        <h4>{{ movieSession.film.name }}</h4>
+        <h4>Фильм {{ movieSession.film.name }}</h4>
+        <p>дата показа {{ movieSession.getFormatDateStart }}</p>
+        <p>начало в {{ movieSession.getFormatTimeStart }}</p>
+        <p>конец в {{ movieSession.getFormatTimeEnd }}</p>
     {% endfor %}
 
 </div>
