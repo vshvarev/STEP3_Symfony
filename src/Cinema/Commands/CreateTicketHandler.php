@@ -6,6 +6,7 @@ use App\Cinema\Entity\Client;
 use App\Cinema\Entity\Ticket;
 use App\Cinema\Repository\ClientRepository;
 use App\Cinema\Repository\TicketRepository;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class CreateTicketHandler implements MessageHandlerInterface
@@ -25,14 +26,10 @@ final class CreateTicketHandler implements MessageHandlerInterface
         $this->ticketRepository->add($ticket, true);
     }
 
+    #[Pure]
     private function createClient(CreateTicketCommand $createTicketCommand): Client
     {
-        $client = new Client();
-
-        $client->setName($createTicketCommand->getName());
-        $client->setPhoneNumber($createTicketCommand->getPhoneNumber());
-
-        return $client;
+        return new Client($createTicketCommand->getName(), $createTicketCommand->getPhoneNumber());
     }
 
     private function createTicket(CreateTicketCommand $createTicketCommand, Client $client): Ticket

@@ -19,6 +19,12 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private $phoneNumber;
 
+    public function __construct(string $name, string $phoneNumber)
+    {
+        $this->name = $name;
+        $this->phoneNumber = $phoneNumber;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,22 +35,8 @@ class Client
         return $this->name;
     }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function getPhoneNumber(): ?string
     {
         return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(string $phoneNumber): self
-    {
-        $this->phoneNumber = $phoneNumber;
-
-        return $this;
     }
 }
