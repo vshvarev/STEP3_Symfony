@@ -14,11 +14,11 @@ class Ticket
     private $id;
 
     #[ORM\ManyToOne(targetEntity: Client::class)]
-    private $client;
+    private Client $client;
 
     #[ORM\ManyToOne(targetEntity: MovieSession::class, inversedBy: 'tickets')]
     #[ORM\JoinColumn(nullable: false)]
-    private $movieSession;
+    private MovieSession $movieSession;
 
     public function __construct(Client $client, MovieSession $movieSession)
     {

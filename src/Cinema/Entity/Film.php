@@ -14,10 +14,10 @@ class Film
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
+    private string $name;
 
     #[ORM\Column(type: 'integer')]
-    private $duration;
+    private int $duration;
 
     public function __construct(string $name, int $duration)
     {

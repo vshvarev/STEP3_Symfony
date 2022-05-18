@@ -20,16 +20,16 @@ class MovieSession
 
     #[ORM\ManyToOne(targetEntity: Film::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private $film;
+    private object $film;
 
     #[ORM\Column(type: 'datetime_immutable')]
-    private $dateTimeStart;
+    private DateTimeImmutable $dateTimeStart;
 
     #[ORM\Column(type: 'integer')]
-    private $maximumCountOfTickets;
+    private int $maximumCountOfTickets;
 
     #[ORM\OneToMany(mappedBy: 'movieSession', targetEntity: Ticket::class)]
-    private $tickets;
+    private Collection $tickets;
 
     #[Pure]
     public function __construct(object $film, DateTimeImmutable $dateTimeStart, int $maximumCountOfTickets)
