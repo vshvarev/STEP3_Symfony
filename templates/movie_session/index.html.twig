@@ -16,6 +16,7 @@
         <p>дата показа {{ movieSession.getFormatDateStart }}</p>
         <p>начало в {{ movieSession.getFormatTimeStart }}</p>
         <p>конец в {{ movieSession.getFormatTimeEnd }}</p>
+        <p>осталось билетов {{ movieSession.getCountOfRemainingTickets }}</p>
 
         <p>
             <a href="{{ path('movie', { id: movieSession.id }) }}">Купить билеты на сеанс</a>

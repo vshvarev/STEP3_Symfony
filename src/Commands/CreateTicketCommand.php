@@ -4,7 +4,7 @@ namespace App\Commands;
 
 use App\Entity\MovieSession;
 
-class CreateTicketCommand
+final class CreateTicketCommand
 {
     public function __construct(
         public string $name,

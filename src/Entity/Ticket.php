@@ -6,7 +6,7 @@ use App\Repository\TicketRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
-class Ticket
+final class Ticket
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,7 +16,7 @@ class Ticket
     #[ORM\ManyToOne(targetEntity: Client::class)]
     private $client;
 
-    #[ORM\ManyToOne(targetEntity: MovieSession::class)]
+    #[ORM\ManyToOne(targetEntity: MovieSession::class, inversedBy: 'tickets')]
     #[ORM\JoinColumn(nullable: false)]
     private $movieSession;
 

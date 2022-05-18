@@ -8,7 +8,7 @@ use App\Repository\ClientRepository;
 use App\Repository\TicketRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class CreateTicketHandler implements MessageHandlerInterface
+final class CreateTicketHandler implements MessageHandlerInterface
 {
     public function __construct(
         private TicketRepository $ticketRepository,

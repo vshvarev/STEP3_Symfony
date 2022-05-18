@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method MovieSession[] findAll()
  * @method MovieSession[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MovieSessionRepository extends ServiceEntityRepository
+final class MovieSessionRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
