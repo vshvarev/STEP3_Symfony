@@ -97,7 +97,7 @@ class MovieSession
         return $this->film;
     }
 
-    public function setFilm(?Film $film): self
+    public function setFilm(?object $film): self
     {
         $this->film = $film;
 
