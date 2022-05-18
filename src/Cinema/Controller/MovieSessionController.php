@@ -7,7 +7,6 @@ use App\Cinema\DTO\ClientDTO;
 use App\Cinema\Entity\MovieSession;
 use App\Cinema\Form\ClientFormType;
 use App\Cinema\Repository\MovieSessionRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
 
 #[ORM\Entity(repositoryClass: MovieSessionRepository::class)]
 class MovieSession
@@ -17,21 +18,25 @@ class MovieSession
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[ORM\ManyToOne(targetEntity: Film::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private $film;
+
     #[ORM\Column(type: 'datetime_immutable')]
     private $dateTimeStart;
 
     #[ORM\Column(type: 'integer')]
     private $maximumCountOfTickets;
 
-    #[ORM\ManyToOne(targetEntity: Film::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private $film;
-
     #[ORM\OneToMany(mappedBy: 'movieSession', targetEntity: Ticket::class)]
     private $tickets;
 
-    public function __construct()
+    #[Pure]
+    public function __construct(object $film, DateTimeImmutable $dateTimeStart, int $maximumCountOfTickets)
     {
+        $this->film = $film;
+        $this->dateTimeStart = $dateTimeStart;
+        $this->maximumCountOfTickets = $maximumCountOfTickets;
         $this->tickets = new ArrayCollection();
     }
 
@@ -68,23 +73,9 @@ class MovieSession
         return $this->dateTimeStart;
     }
 
-    public function setDateTimeStart(DateTimeImmutable $dateTimeStart): self
-    {
-        $this->dateTimeStart = $dateTimeStart;
-
-        return $this;
-    }
-
     public function getMaximumCountOfTickets(): ?int
     {
         return $this->maximumCountOfTickets;
-    }
-
-    public function setMaximumCountOfTickets(int $maximumCountOfTickets): self
-    {
-        $this->maximumCountOfTickets = $maximumCountOfTickets;
-
-        return $this;
     }
 
     public function getCountOfRemainingTickets(): int
@@ -95,13 +86,6 @@ class MovieSession
     public function getFilm(): ?Film
     {
         return $this->film;
-    }
-
-    public function setFilm(?object $film): self
-    {
-        $this->film = $film;
-
-        return $this;
     }
 
     /**
