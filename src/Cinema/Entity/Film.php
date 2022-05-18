@@ -19,6 +19,12 @@ class Film
     #[ORM\Column(type: 'integer')]
     private $duration;
 
+    public function __construct(string $name, int $duration)
+    {
+        $this->name = $name;
+        $this->duration = $duration;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,22 +35,8 @@ class Film
         return $this->name;
     }
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function getDuration(): ?int
     {
         return $this->duration;
-    }
-
-    public function setDuration(int $duration): self
-    {
-        $this->duration = $duration;
-
-        return $this;
     }
 }

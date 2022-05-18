@@ -13,14 +13,10 @@ final class FilmFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $film1 = new Film();
-        $film1->setName('The Dark Knight');
-        $film1->setDuration(189);
+        $film1 = new Film('The Dark Knight', 189);
         $manager->persist($film1);
 
-        $film2 = new Film();
-        $film2->setName('Harry Potter and the Deathly Hallows');
-        $film2->setDuration(156);
+        $film2 = new Film('Harry Potter and the Deathly Hallows', 156);
         $manager->persist($film2);
 
         $manager->flush();
