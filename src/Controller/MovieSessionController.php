@@ -24,16 +24,16 @@ final class MovieSessionController extends AbstractController
     ) {}
 
     #[Route('/movie', name: 'movieSession_list')]
-    public function index(Environment $twig, MovieSessionRepository $movieSessionRepository, TicketRepository $ticketRepository): Response
+    public function index(MovieSessionRepository $movieSessionRepository, TicketRepository $ticketRepository): Response
     {
-        return new Response($twig->render('movie_session/index.html.twig', [
+        return new Response($this->twig->render('movie_session/index.html.twig', [
             'movieSessions' => $movieSessionRepository->findAll(),
             'tickets' => $ticketRepository->findAll(),
         ]));
     }
 
     #[Route('/movie/{id}', name: 'movie')]
-    public function show(Environment $twig, MovieSession $movieSession, Request $request, TicketRepository $ticketRepository, MessageBusInterface $bus): Response
+    public function show(MovieSession $movieSession, Request $request, TicketRepository $ticketRepository, MessageBusInterface $bus): Response
     {
         $client = new ClientDTO();
         $form = $this->createForm(ClientFormType::class, $client);
@@ -41,9 +41,10 @@ final class MovieSessionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $bus->dispatch(new CreateTicketCommand($client->getName(), $client->getPhoneNumber(), $movieSession));
+            return $this->redirectToRoute('movieSession_list');
         }
 
-        return new Response($twig->render('movie_session/show.html.twig', [
+        return new Response($this->twig->render('movie_session/show.html.twig', [
             'movieSession' => $movieSession,
             'tickets' => $ticketRepository->findBy(['movieSession' => $movieSession]),
             'client_form' => $form->createView(),
