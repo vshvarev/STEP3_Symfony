@@ -20,6 +20,12 @@ class Ticket
     #[ORM\JoinColumn(nullable: false)]
     private $movieSession;
 
+    public function __construct(Client $client, MovieSession $movieSession)
+    {
+        $this->client = $client;
+        $this->movieSession = $movieSession;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,22 +36,8 @@ class Ticket
         return $this->client;
     }
 
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
     public function getMovieSession(): ?MovieSession
     {
         return $this->movieSession;
-    }
-
-    public function setMovieSession(?MovieSession $movieSession): self
-    {
-        $this->movieSession = $movieSession;
-
-        return $this;
     }
 }

@@ -32,13 +32,9 @@ final class CreateTicketHandler implements MessageHandlerInterface
         return new Client($createTicketCommand->getName(), $createTicketCommand->getPhoneNumber());
     }
 
+    #[Pure]
     private function createTicket(CreateTicketCommand $createTicketCommand, Client $client): Ticket
     {
-        $ticket = new Ticket();
-
-        $ticket->setClient($client);
-        $ticket->setMovieSession($createTicketCommand->getMovieSession());
-
-        return $ticket;
+        return new Ticket($client, $createTicketCommand->getMovieSession());
     }
 }
