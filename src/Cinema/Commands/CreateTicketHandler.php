@@ -17,17 +17,31 @@ final class CreateTicketHandler implements MessageHandlerInterface
 
     public function __invoke(CreateTicketCommand $createTicketCommand): void
     {
+        $client = $this->createClient($createTicketCommand);
+
+        $ticket = $this->createTicket($createTicketCommand, $client);
+
+        $this->clientRepository->add($client, true);
+        $this->ticketRepository->add($ticket, true);
+    }
+
+    private function createClient(CreateTicketCommand $createTicketCommand): Client
+    {
         $client = new Client();
 
         $client->setName($createTicketCommand->getName());
         $client->setPhoneNumber($createTicketCommand->getPhoneNumber());
 
+        return $client;
+    }
+
+    private function createTicket(CreateTicketCommand $createTicketCommand, Client $client): Ticket
+    {
         $ticket = new Ticket();
 
         $ticket->setClient($client);
         $ticket->setMovieSession($createTicketCommand->getMovieSession());
 
-        $this->clientRepository->add($client, true);
-        $this->ticketRepository->add($ticket, true);
+        return $ticket;
     }
 }
