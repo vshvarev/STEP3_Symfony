@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Commands\CreateTicketCommand;
-use App\Entity\Client;
+use App\DTO\ClientDTO;
 use App\Entity\MovieSession;
 use App\Form\ClientFormType;
 use App\Repository\MovieSessionRepository;
@@ -16,16 +16,12 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Twig\Environment;
 
-class MovieSessionController extends AbstractController
+final class MovieSessionController extends AbstractController
 {
-    private $twig;
-    private $entityManager;
-
-    public function __construct(Environment $twig, EntityManagerInterface $entityManager)
-    {
-        $this->twig = $twig;
-        $this->entityManager = $entityManager;
-    }
+    public function __construct(
+        private Environment $twig,
+        private EntityManagerInterface $entityManager,
+    ) {}
 
     #[Route('/movie', name: 'movieSession_list')]
     public function index(Environment $twig, MovieSessionRepository $movieSessionRepository, TicketRepository $ticketRepository): Response
@@ -39,7 +35,7 @@ class MovieSessionController extends AbstractController
     #[Route('/movie/{id}', name: 'movie')]
     public function show(Environment $twig, MovieSession $movieSession, Request $request, TicketRepository $ticketRepository, MessageBusInterface $bus): Response
     {
-        $client = new Client();
+        $client = new ClientDTO();
         $form = $this->createForm(ClientFormType::class, $client);
         $form->handleRequest($request);
 
