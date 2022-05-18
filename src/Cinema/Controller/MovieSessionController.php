@@ -7,7 +7,7 @@ use App\Cinema\DTO\ClientDTO;
 use App\Cinema\Entity\MovieSession;
 use App\Cinema\Form\ClientFormType;
 use App\Cinema\Repository\MovieSessionRepository;
-use App\Cinema\Repository\TicketRepository;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +30,7 @@ final class MovieSessionController extends AbstractController
     }
 
     #[Route('/movie/{id}', name: 'movie')]
-    public function show(MovieSession $movieSession, Request $request, TicketRepository $ticketRepository, MessageBusInterface $bus): Response
+    public function show(MovieSession $movieSession, Request $request, MessageBusInterface $bus): Response
     {
         $client = new ClientDTO();
 
@@ -45,7 +45,6 @@ final class MovieSessionController extends AbstractController
 
         return new Response($this->twig->render('movie_session/show.html.twig', [
             'movieSession' => $movieSession,
-            'tickets' => $ticketRepository->findBy(['movieSession' => $movieSession]),
             'client_form' => $form->createView(),
         ]));
     }

@@ -14,7 +14,7 @@
     <p>дата показа {{ movieSession.getFormatDateStart }}</p>
     <p>начало в {{ movieSession.getFormatTimeStart }}</p>
     <p>конец в {{ movieSession.getFormatTimeEnd }}</p>
-    <p>осталось билетов {{ movieSession.maximumCountOfTickets - tickets|length }}</p>
+    <p>осталось билетов {{ movieSession.getCountOfRemainingTickets }}</p>
 
 
     {{ form(client_form) }}
