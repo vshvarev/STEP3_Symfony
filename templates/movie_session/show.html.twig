@@ -14,10 +14,14 @@
     <p>дата показа {{ movieSession.getFormatDateStart }}</p>
     <p>начало в {{ movieSession.getFormatTimeStart }}</p>
     <p>конец в {{ movieSession.getFormatTimeEnd }}</p>
-    <p>осталось билетов {{ movieSession.getCountOfRemainingTickets }}</p>
 
+    {% if movieSession.getCountOfRemainingTickets > 0 %}
+        <p>осталось билетов {{ movieSession.getCountOfRemainingTickets }}</p>
 
-    {{ form(client_form) }}
+        {{ form(client_form) }}
+    {% else %}
+        <h4>Билеты кончились</h4>
+    {% endif %}
 
 </div>
 {% endblock %}

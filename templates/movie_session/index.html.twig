@@ -18,9 +18,13 @@
         <p>конец в {{ movieSession.getFormatTimeEnd }}</p>
         <p>осталось билетов {{ movieSession.getCountOfRemainingTickets }}</p>
 
-        <p>
-            <a href="{{ path('movie', { id: movieSession.id }) }}">Купить билеты на сеанс</a>
-        </p>
+        {% if movieSession.getCountOfRemainingTickets > 0 %}
+            <p>
+                <a href="{{ path('movie', { id: movieSession.id }) }}">Купить билеты на сеанс</a>
+            </p>
+        {% else %}
+            <h4> Билеты кончились!!! </h4>
+        {% endif %}
     {% endfor %}
 
 </div>
