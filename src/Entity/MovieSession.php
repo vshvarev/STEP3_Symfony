@@ -5,10 +5,12 @@ namespace App\Entity;
 use App\Repository\MovieSessionRepository;
 use DateInterval;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovieSessionRepository::class)]
-class MovieSession
+final class MovieSession
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,10 +27,19 @@ class MovieSession
     #[ORM\JoinColumn(nullable: false)]
     private $film;
 
+    #[ORM\OneToMany(mappedBy: 'movieSession', targetEntity: Ticket::class)]
+    private $tickets;
+
+    public function __construct()
+    {
+        $this->tickets = new ArrayCollection();
+    }
+
     public function getFormatTimeEnd(): string
     {
         $duration = DateInterval::createFromDateString("+{$this->getFilmDuration()} minutes");
         $dateTimeEnd = $this->dateTimeStart->add($duration);
+
         return $dateTimeEnd->format('H:i');
     }
 
@@ -76,6 +87,11 @@ class MovieSession
         return $this;
     }
 
+    public function getCountOfRemainingTickets(): int
+    {
+        return $this->getMaximumCountOfTickets() - count($this->getTickets());
+    }
+
     public function getFilm(): ?Film
     {
         return $this->film;
@@ -84,6 +100,36 @@ class MovieSession
     public function setFilm(?Film $film): self
     {
         $this->film = $film;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ticket>
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setMovieSession($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(Ticket $ticket): self
+    {
+        if ($this->tickets->removeElement($ticket)) {
+            // set the owning side to null (unless already changed)
+            if ($ticket->getMovieSession() === $this) {
+                $ticket->setMovieSession(null);
+            }
+        }
 
         return $this;
     }

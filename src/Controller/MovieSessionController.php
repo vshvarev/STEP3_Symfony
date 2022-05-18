@@ -8,7 +8,6 @@ use App\Entity\MovieSession;
 use App\Form\ClientFormType;
 use App\Repository\MovieSessionRepository;
 use App\Repository\TicketRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,15 +19,13 @@ final class MovieSessionController extends AbstractController
 {
     public function __construct(
         private Environment $twig,
-        private EntityManagerInterface $entityManager,
     ) {}
 
     #[Route('/movie', name: 'movieSession_list')]
-    public function index(MovieSessionRepository $movieSessionRepository, TicketRepository $ticketRepository): Response
+    public function index(MovieSessionRepository $movieSessionRepository): Response
     {
         return new Response($this->twig->render('movie_session/index.html.twig', [
             'movieSessions' => $movieSessionRepository->findAll(),
-            'tickets' => $ticketRepository->findAll(),
         ]));
     }
 
@@ -36,11 +33,13 @@ final class MovieSessionController extends AbstractController
     public function show(MovieSession $movieSession, Request $request, TicketRepository $ticketRepository, MessageBusInterface $bus): Response
     {
         $client = new ClientDTO();
+
         $form = $this->createForm(ClientFormType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $bus->dispatch(new CreateTicketCommand($client->getName(), $client->getPhoneNumber(), $movieSession));
+
             return $this->redirectToRoute('movieSession_list');
         }
 

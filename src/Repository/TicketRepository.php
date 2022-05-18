@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Ticket[]    findAll()
  * @method Ticket[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TicketRepository extends ServiceEntityRepository
+final class TicketRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
