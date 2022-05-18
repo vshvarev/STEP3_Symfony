@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovieSessionRepository::class)]
-final class MovieSession
+class MovieSession
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

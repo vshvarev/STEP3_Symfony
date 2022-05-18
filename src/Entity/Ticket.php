@@ -6,7 +6,7 @@ use App\Repository\TicketRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]
-final class Ticket
+class Ticket
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
