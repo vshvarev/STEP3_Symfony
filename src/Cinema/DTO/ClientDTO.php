@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DTO;
+namespace App\Cinema\DTO;
 
 final class ClientDTO
 {

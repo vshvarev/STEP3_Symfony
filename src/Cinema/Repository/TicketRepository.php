@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Cinema\Repository;
 
-use App\Entity\Ticket;
+use App\Cinema\Entity\Ticket;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

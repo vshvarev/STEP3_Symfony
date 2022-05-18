@@ -1,10 +1,10 @@
 <?php
 
-namespace App\DataFixtures;
+namespace App\Cinema\DataFixtures;
 
-use App\Entity\Client;
-use App\Entity\Film;
-use App\Entity\MovieSession;
+use App\Cinema\Entity\Client;
+use App\Cinema\Entity\Film;
+use App\Cinema\Entity\MovieSession;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 

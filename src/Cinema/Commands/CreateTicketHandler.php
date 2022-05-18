@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Commands;
+namespace App\Cinema\Commands;
 
-use App\Entity\Client;
-use App\Entity\Ticket;
-use App\Repository\ClientRepository;
-use App\Repository\TicketRepository;
+use App\Cinema\Entity\Client;
+use App\Cinema\Entity\Ticket;
+use App\Cinema\Repository\ClientRepository;
+use App\Cinema\Repository\TicketRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 final class CreateTicketHandler implements MessageHandlerInterface

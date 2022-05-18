@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Cinema\Entity;
 
-use App\Repository\TicketRepository;
+use App\Cinema\Repository\TicketRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TicketRepository::class)]

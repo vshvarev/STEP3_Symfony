@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Cinema\Controller;
 
-use App\Commands\CreateTicketCommand;
-use App\DTO\ClientDTO;
-use App\Entity\MovieSession;
-use App\Form\ClientFormType;
-use App\Repository\MovieSessionRepository;
-use App\Repository\TicketRepository;
+use App\Cinema\Commands\CreateTicketCommand;
+use App\Cinema\DTO\ClientDTO;
+use App\Cinema\Entity\MovieSession;
+use App\Cinema\Form\ClientFormType;
+use App\Cinema\Repository\MovieSessionRepository;
+use App\Cinema\Repository\TicketRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Commands;
+namespace App\Cinema\Commands;
 
-use App\Entity\MovieSession;
+use App\Cinema\Entity\MovieSession;
 
 final class CreateTicketCommand
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity;
+namespace App\Cinema\Entity;
 
-use App\Repository\FilmRepository;
+use App\Cinema\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: FilmRepository::class)]
-class Film
+#[ORM\Entity(repositoryClass: ClientRepository::class)]
+class Client
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -16,8 +16,8 @@ class Film
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\Column(type: 'integer')]
-    private $duration;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $phoneNumber;
 
     public function getId(): ?int
     {
@@ -36,14 +36,14 @@ class Film
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getPhoneNumber(): ?string
     {
-        return $this->duration;
+        return $this->phoneNumber;
     }
 
-    public function setDuration(int $duration): self
+    public function setPhoneNumber(string $phoneNumber): self
     {
-        $this->duration = $duration;
+        $this->phoneNumber = $phoneNumber;
 
         return $this;
     }
