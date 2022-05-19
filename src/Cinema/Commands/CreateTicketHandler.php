@@ -6,8 +6,8 @@ use App\Cinema\Entity\Client;
 use App\Cinema\Entity\Ticket;
 use App\Cinema\Repository\ClientRepository;
 use App\Cinema\Repository\TicketRepository;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class CreateTicketHandler implements MessageHandlerInterface
 {
@@ -23,18 +23,16 @@ final class CreateTicketHandler implements MessageHandlerInterface
         $ticket = $this->createTicket($createTicketCommand, $client);
 
         $this->clientRepository->add($client, true);
-        $this->ticketRepository->save($ticket);
+        $this->ticketRepository->add($ticket, true);
     }
 
-    #[Pure]
     private function createClient(CreateTicketCommand $createTicketCommand): Client
     {
-        return new Client($createTicketCommand->getName(), $createTicketCommand->getPhoneNumber());
+        return new Client(Uuid::v4(), $createTicketCommand->getName(), $createTicketCommand->getPhoneNumber());
     }
 
-    #[Pure]
     private function createTicket(CreateTicketCommand $createTicketCommand, Client $client): Ticket
     {
-        return new Ticket($client, $createTicketCommand->getMovieSession());
+        return new Ticket(Uuid::v4(), $client, $createTicketCommand->getMovieSession());
     }
 }
