@@ -15,7 +15,6 @@ use Symfony\Component\Uid\Uuid;
 class MovieSession
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'uuid')]
     private Uuid $id;
 

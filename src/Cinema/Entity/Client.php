@@ -10,7 +10,6 @@ use Symfony\Component\Uid\Uuid;
 class Client
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'uuid')]
     private Uuid $id;
 

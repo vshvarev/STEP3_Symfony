@@ -4,7 +4,6 @@ namespace App\Cinema\Controller;
 
 use App\Cinema\Commands\CreateTicketCommand;
 use App\Cinema\DTO\ClientDTO;
-use App\Cinema\Entity\MovieSession;
 use App\Cinema\Form\ClientFormType;
 use App\Cinema\Repository\MovieSessionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Uid\Uuid;
 use Twig\Environment;
 
 final class MovieSessionController extends AbstractController
@@ -32,6 +32,10 @@ final class MovieSessionController extends AbstractController
     public function show(string $id, Request $request, MessageBusInterface $bus, MovieSessionRepository $movieSessionRepository): Response
     {
         $movieSession = $movieSessionRepository->find($id);
+
+        if (!$movieSession) {
+            return $this->redirectToRoute('movieSession_list');
+        }
 
         $client = new ClientDTO();
 
