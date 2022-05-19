@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository;
+namespace App\Cinema\Repository;
 
-use App\Entity\MovieSession;
+use App\Cinema\Entity\MovieSession;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,13 +21,10 @@ final class MovieSessionRepository extends ServiceEntityRepository
         parent::__construct($registry, MovieSession::class);
     }
 
-    public function add(MovieSession $entity, bool $flush = false): void
+    public function save(MovieSession $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function remove(MovieSession $entity, bool $flush = false): void
@@ -38,29 +35,4 @@ final class MovieSessionRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
-//     * @return MovieSession[] Returns an array of MovieSession objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?MovieSession
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Controller;
+namespace App\Cinema\Controller;
 
-use App\Commands\CreateTicketCommand;
-use App\DTO\ClientDTO;
-use App\Entity\MovieSession;
-use App\Form\ClientFormType;
-use App\Repository\MovieSessionRepository;
-use App\Repository\TicketRepository;
+use App\Cinema\Commands\CreateTicketCommand;
+use App\Cinema\DTO\ClientDTO;
+use App\Cinema\Form\ClientFormType;
+use App\Cinema\Repository\MovieSessionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Uid\Uuid;
 use Twig\Environment;
 
 final class MovieSessionController extends AbstractController
@@ -30,8 +29,15 @@ final class MovieSessionController extends AbstractController
     }
 
     #[Route('/movie/{id}', name: 'movie')]
-    public function show(MovieSession $movieSession, Request $request, TicketRepository $ticketRepository, MessageBusInterface $bus): Response
+    public function show(Request $request, string $id, MessageBusInterface $bus, MovieSessionRepository $movieSessionRepository): Response
     {
+        try {
+            $uuid = Uuid::fromString($id);
+            $movieSession = $movieSessionRepository->find($id);
+        } catch (\Exception) {
+            return $this->redirectToRoute('movieSession_list');
+        }
+
         $client = new ClientDTO();
 
         $form = $this->createForm(ClientFormType::class, $client);
@@ -45,7 +51,6 @@ final class MovieSessionController extends AbstractController
 
         return new Response($this->twig->render('movie_session/show.html.twig', [
             'movieSession' => $movieSession,
-            'tickets' => $ticketRepository->findBy(['movieSession' => $movieSession]),
             'client_form' => $form->createView(),
         ]));
     }

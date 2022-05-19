@@ -1,37 +1,43 @@
 <?php
 
-namespace App\Entity;
+namespace App\Cinema\Entity;
 
-use App\Repository\MovieSessionRepository;
+use App\Cinema\Repository\MovieSessionRepository;
 use DateInterval;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JetBrains\PhpStorm\Pure;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: MovieSessionRepository::class)]
 class MovieSession
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
-
-    #[ORM\Column(type: 'datetime_immutable')]
-    private $dateTimeStart;
-
-    #[ORM\Column(type: 'integer')]
-    private $maximumCountOfTickets;
+    #[ORM\Column(type: 'uuid')]
+    private Uuid $id;
 
     #[ORM\ManyToOne(targetEntity: Film::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private $film;
+    private Film $film;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private DateTimeImmutable $dateTimeStart;
+
+    #[ORM\Column(type: 'integer')]
+    private int $maximumCountOfTickets;
 
     #[ORM\OneToMany(mappedBy: 'movieSession', targetEntity: Ticket::class)]
-    private $tickets;
+    private Collection $tickets;
 
-    public function __construct()
+    #[Pure]
+    public function __construct(Uuid $id, Film $film, DateTimeImmutable $dateTimeStart, int $maximumCountOfTickets)
     {
+        $this->id = $id;
+        $this->film = $film;
+        $this->dateTimeStart = $dateTimeStart;
+        $this->maximumCountOfTickets = $maximumCountOfTickets;
         $this->tickets = new ArrayCollection();
     }
 
@@ -58,7 +64,7 @@ class MovieSession
         return $this->dateTimeStart->format('d F Y');
     }
 
-    public function getId(): ?int
+    public function getId(): Uuid
     {
         return $this->id;
     }
@@ -68,23 +74,9 @@ class MovieSession
         return $this->dateTimeStart;
     }
 
-    public function setDateTimeStart(DateTimeImmutable $dateTimeStart): self
-    {
-        $this->dateTimeStart = $dateTimeStart;
-
-        return $this;
-    }
-
     public function getMaximumCountOfTickets(): ?int
     {
         return $this->maximumCountOfTickets;
-    }
-
-    public function setMaximumCountOfTickets(int $maximumCountOfTickets): self
-    {
-        $this->maximumCountOfTickets = $maximumCountOfTickets;
-
-        return $this;
     }
 
     public function getCountOfRemainingTickets(): int
@@ -97,40 +89,11 @@ class MovieSession
         return $this->film;
     }
 
-    public function setFilm(?Film $film): self
-    {
-        $this->film = $film;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Ticket>
      */
     public function getTickets(): Collection
     {
         return $this->tickets;
-    }
-
-    public function addTicket(Ticket $ticket): self
-    {
-        if (!$this->tickets->contains($ticket)) {
-            $this->tickets[] = $ticket;
-            $ticket->setMovieSession($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTicket(Ticket $ticket): self
-    {
-        if ($this->tickets->removeElement($ticket)) {
-            // set the owning side to null (unless already changed)
-            if ($ticket->getMovieSession() === $this) {
-                $ticket->setMovieSession(null);
-            }
-        }
-
-        return $this;
     }
 }

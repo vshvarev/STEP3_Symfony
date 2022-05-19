@@ -1,5 +1,5 @@
 controllers:
-    resource: ../src/Controller/
+    resource: ../src/Cinema/Controller/
     type: annotation
 
 kernel:
