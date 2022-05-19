@@ -29,11 +29,12 @@ final class MovieSessionController extends AbstractController
     }
 
     #[Route('/movie/{id}', name: 'movie')]
-    public function show(string $id, Request $request, MessageBusInterface $bus, MovieSessionRepository $movieSessionRepository): Response
+    public function show(Request $request, string $id, MessageBusInterface $bus, MovieSessionRepository $movieSessionRepository): Response
     {
-        $movieSession = $movieSessionRepository->find($id);
-
-        if (!$movieSession) {
+        try {
+            $uuid = Uuid::fromString($id);
+            $movieSession = $movieSessionRepository->find($id);
+        } catch (\Exception) {
             return $this->redirectToRoute('movieSession_list');
         }
 

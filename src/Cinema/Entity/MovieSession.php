@@ -20,7 +20,7 @@ class MovieSession
 
     #[ORM\ManyToOne(targetEntity: Film::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private object $film;
+    private Film $film;
 
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $dateTimeStart;
