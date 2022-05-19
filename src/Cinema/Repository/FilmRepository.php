@@ -21,13 +21,10 @@ final class FilmRepository extends ServiceEntityRepository
         parent::__construct($registry, Film::class);
     }
 
-    public function add(Film $entity, bool $flush = false): void
+    public function save(Film $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function remove(Film $entity, bool $flush = false): void

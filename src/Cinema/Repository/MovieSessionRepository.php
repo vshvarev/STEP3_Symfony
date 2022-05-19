@@ -21,13 +21,10 @@ final class MovieSessionRepository extends ServiceEntityRepository
         parent::__construct($registry, MovieSession::class);
     }
 
-    public function add(MovieSession $entity, bool $flush = false): void
+    public function save(MovieSession $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function remove(MovieSession $entity, bool $flush = false): void

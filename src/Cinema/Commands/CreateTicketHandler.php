@@ -22,8 +22,8 @@ final class CreateTicketHandler implements MessageHandlerInterface
 
         $ticket = $this->createTicket($createTicketCommand, $client);
 
-        $this->clientRepository->add($client, true);
-        $this->ticketRepository->add($ticket, true);
+        $this->clientRepository->save($client);
+        $this->ticketRepository->save($ticket);
     }
 
     private function createClient(CreateTicketCommand $createTicketCommand): Client

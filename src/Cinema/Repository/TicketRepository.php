@@ -21,13 +21,10 @@ final class TicketRepository extends ServiceEntityRepository
         parent::__construct($registry, Ticket::class);
     }
 
-    public function add(Ticket $entity, bool $flush = false): void
+    public function save(Ticket $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function remove(Ticket $entity, bool $flush = false): void

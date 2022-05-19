@@ -21,13 +21,10 @@ final class ClientRepository extends ServiceEntityRepository
         parent::__construct($registry, Client::class);
     }
 
-    public function add(Client $entity, bool $flush = false): void
+    public function save(Client $entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+        $this->getEntityManager()->flush();
     }
 
     public function remove(Client $entity, bool $flush = false): void
