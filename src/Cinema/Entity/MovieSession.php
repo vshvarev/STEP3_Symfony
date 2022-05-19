@@ -9,14 +9,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JetBrains\PhpStorm\Pure;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: MovieSessionRepository::class)]
 class MovieSession
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column(type: 'uuid')]
+    private Uuid $id;
 
     #[ORM\ManyToOne(targetEntity: Film::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -32,8 +33,9 @@ class MovieSession
     private Collection $tickets;
 
     #[Pure]
-    public function __construct(object $film, DateTimeImmutable $dateTimeStart, int $maximumCountOfTickets)
+    public function __construct(Uuid $id, Film $film, DateTimeImmutable $dateTimeStart, int $maximumCountOfTickets)
     {
+        $this->id = $id;
         $this->film = $film;
         $this->dateTimeStart = $dateTimeStart;
         $this->maximumCountOfTickets = $maximumCountOfTickets;
@@ -63,7 +65,7 @@ class MovieSession
         return $this->dateTimeStart->format('d F Y');
     }
 
-    public function getId(): ?int
+    public function getId(): Uuid
     {
         return $this->id;
     }

@@ -4,14 +4,15 @@ namespace App\Cinema\Entity;
 
 use App\Cinema\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
+    #[ORM\Column(type: 'uuid')]
+    private Uuid $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     private string $name;
@@ -19,13 +20,14 @@ class Client
     #[ORM\Column(type: 'string', length: 255)]
     private string $phoneNumber;
 
-    public function __construct(string $name, string $phoneNumber)
+    public function __construct(Uuid $id, string $name, string $phoneNumber)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function getId(): ?int
+    public function getId(): Uuid
     {
         return $this->id;
     }

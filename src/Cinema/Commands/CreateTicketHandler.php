@@ -23,7 +23,7 @@ final class CreateTicketHandler implements MessageHandlerInterface
         $ticket = $this->createTicket($createTicketCommand, $client);
 
         $this->clientRepository->add($client, true);
-        $this->ticketRepository->add($ticket, true);
+        $this->ticketRepository->save($ticket);
     }
 
     #[Pure]

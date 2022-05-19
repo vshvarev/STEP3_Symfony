@@ -29,8 +29,10 @@ final class MovieSessionController extends AbstractController
     }
 
     #[Route('/movie/{id}', name: 'movie')]
-    public function show(MovieSession $movieSession, Request $request, MessageBusInterface $bus): Response
+    public function show(string $id, Request $request, MessageBusInterface $bus, MovieSessionRepository $movieSessionRepository): Response
     {
+        $movieSession = $movieSessionRepository->find($id);
+
         $client = new ClientDTO();
 
         $form = $this->createForm(ClientFormType::class, $client);
