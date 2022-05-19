@@ -26,19 +26,4 @@ class Ticket
         $this->client = $client;
         $this->movieSession = $movieSession;
     }
-
-    public function getId(): Uuid
-    {
-        return $this->id;
-    }
-
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function getMovieSession(): ?MovieSession
-    {
-        return $this->movieSession;
-    }
 }

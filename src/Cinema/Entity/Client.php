@@ -26,11 +26,6 @@ class Client
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function getId(): Uuid
-    {
-        return $this->id;
-    }
-
     public function getName(): ?string
     {
         return $this->name;

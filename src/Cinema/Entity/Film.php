@@ -26,11 +26,6 @@ class Film
         $this->duration = $duration;
     }
 
-    public function getId(): Uuid
-    {
-        return $this->id;
-    }
-
     public function getName(): ?string
     {
         return $this->name;

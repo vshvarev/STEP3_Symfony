@@ -96,26 +96,4 @@ class MovieSession
     {
         return $this->tickets;
     }
-
-    public function addTicket(Ticket $ticket): self
-    {
-        if (!$this->tickets->contains($ticket)) {
-            $this->tickets[] = $ticket;
-            $ticket->setMovieSession($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTicket(Ticket $ticket): self
-    {
-        if ($this->tickets->removeElement($ticket)) {
-            // set the owning side to null (unless already changed)
-            if ($ticket->getMovieSession() === $this) {
-                $ticket->setMovieSession(null);
-            }
-        }
-
-        return $this;
-    }
 }
