@@ -11,7 +11,7 @@ framework:
 
         routing:
             # Route your messages to the transports
-            App\Cinema\Commands\CreateTicketCommand: sync
+            App\Domain\Cinema\Command\CreateTicketCommand: sync
 
 # when@test:
 #    framework:

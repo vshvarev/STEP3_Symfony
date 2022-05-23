@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cinema\Entity;
+namespace App\Domain\Cinema\Entity;
 
-use App\Cinema\Repository\MovieSessionRepository;
+use App\Domain\Cinema\Repository\MovieSessionRepository;
 use DateInterval;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;

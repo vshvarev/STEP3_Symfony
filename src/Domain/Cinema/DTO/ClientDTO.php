@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Cinema\DTO;
+namespace App\Domain\Cinema\DTO;
 
 use Symfony\Component\Validator\Constraints as Assert;
 

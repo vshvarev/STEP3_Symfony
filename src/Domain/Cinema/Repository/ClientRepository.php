@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cinema\Repository;
+namespace App\Domain\Cinema\Repository;
 
-use App\Cinema\Entity\Client;
+use App\Domain\Cinema\Entity\Client;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Cinema\Commands;
+namespace App\Domain\Cinema\Command;
 
-use App\Cinema\Entity\Client;
-use App\Cinema\Entity\Ticket;
-use App\Cinema\Repository\ClientRepository;
-use App\Cinema\Repository\TicketRepository;
+use App\Domain\Cinema\Entity\Client;
+use App\Domain\Cinema\Entity\Ticket;
+use App\Domain\Cinema\Repository\ClientRepository;
+use App\Domain\Cinema\Repository\TicketRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Uid\Uuid;
 
