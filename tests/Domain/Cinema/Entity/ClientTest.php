@@ -8,11 +8,20 @@ use Symfony\Component\Uid\Uuid;
 
 final class ClientTest extends TestCase
 {
-    public function testCreateClientObject(): void
-    {
-        $client = new Client(Uuid::v4(), 'Name', '+71234567890');
+    private Client $client;
 
-        $this->assertEquals('Name', $client->getName());
-        $this->assertEquals('+71234567890', $client->getPhoneNumber());
+    protected function setUp(): void
+    {
+        $this->client = new Client(Uuid::v4(), 'Name', '+71234567890');
+    }
+
+    public function testGetName(): void
+    {
+        $this->assertEquals('Name', $this->client->getName());
+    }
+
+    public function testGetPhoneNumber(): void
+    {
+        $this->assertEquals('+71234567890', $this->client->getPhoneNumber());
     }
 }

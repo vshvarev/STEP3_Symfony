@@ -13,7 +13,7 @@ final class MovieSessionTest extends TestCase
 
     private Film $film;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->film = new Film(Uuid::v4(), 'FilmName', 120);
 
