@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cinema\DataFixtures;
+namespace App\Domain\Cinema\DataFixtures;
 
-use App\Cinema\Entity\Film;
+use App\Domain\Cinema\Entity\Film;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Uid\Uuid;

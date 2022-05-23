@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cinema\Form;
+namespace App\Http\Form;
 
-use App\Cinema\DTO\ClientDTO;
+use App\Domain\Cinema\DTO\ClientDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;

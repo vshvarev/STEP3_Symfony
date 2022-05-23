@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cinema\DataFixtures;
+namespace App\Domain\Cinema\DataFixtures;
 
-use App\Cinema\Entity\MovieSession;
+use App\Domain\Cinema\Entity\MovieSession;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

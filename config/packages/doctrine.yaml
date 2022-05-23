@@ -12,8 +12,8 @@ doctrine:
         mappings:
             App:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Cinema/Entity'
-                prefix: 'App\Cinema\Entity'
+                dir: '%kernel.project_dir%/src/Domain/Cinema/Entity'
+                prefix: 'App\Domain\Cinema\Entity'
                 alias: App
 
 when@test:

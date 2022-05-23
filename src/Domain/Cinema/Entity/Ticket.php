@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Cinema\Entity;
+namespace App\Domain\Cinema\Entity;
 
-use App\Cinema\Repository\TicketRepository;
+use App\Domain\Cinema\Repository\TicketRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
