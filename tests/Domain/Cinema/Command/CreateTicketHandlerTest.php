@@ -15,6 +15,16 @@ final class CreateTicketHandlerTest extends WebTestCase
 {
     private MovieSession $movieSession;
 
+    public function testHandle(): void
+    {
+        $this->createMovieSession();
+        $messageBus = self::getContainer()->get(MessageBusInterface::class);
+
+        $messageBus->dispatch(new CreateTicketCommand('ClientName', '71234567890', $this->movieSession));
+
+        self::assertEquals(49, $this->movieSession->getCountOfRemainingTickets());
+    }
+
     private function createMovieSession(): void
     {
         $movieSession = new MovieSession(
@@ -23,7 +33,7 @@ final class CreateTicketHandlerTest extends WebTestCase
             date_create_immutable('2022-05-22 20:00:00'),
             50,
         );
-        $this->getContainer()->get(MovieSessionRepository::class)->save($movieSession);
+        self::getContainer()->get(MovieSessionRepository::class)->save($movieSession);
 
         $this->movieSession = $movieSession;
     }
@@ -31,18 +41,8 @@ final class CreateTicketHandlerTest extends WebTestCase
     private function createFilm(): Film
     {
         $film = new Film(Uuid::v4(), 'FilmName', 120);
-        $this->getContainer()->get(FilmRepository::class)->save($film);
+        self::getContainer()->get(FilmRepository::class)->save($film);
 
         return $film;
-    }
-
-    public function testHandle(): void
-    {
-        $this->createMovieSession();
-        $messageBus = $this->getContainer()->get(MessageBusInterface::class);
-
-        $messageBus->dispatch(new CreateTicketCommand('ClientName', '71234567890', $this->movieSession));
-
-        $this->assertEquals(49, $this->movieSession->getCountOfRemainingTickets());
     }
 }

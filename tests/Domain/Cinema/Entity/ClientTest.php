@@ -17,11 +17,11 @@ final class ClientTest extends TestCase
 
     public function testGetName(): void
     {
-        $this->assertEquals('Name', $this->client->getName());
+        self::assertEquals('Name', $this->client->getName());
     }
 
     public function testGetPhoneNumber(): void
     {
-        $this->assertEquals('+71234567890', $this->client->getPhoneNumber());
+        self::assertEquals('+71234567890', $this->client->getPhoneNumber());
     }
 }

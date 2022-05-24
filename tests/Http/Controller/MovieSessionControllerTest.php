@@ -11,9 +11,25 @@ use Symfony\Component\Uid\Uuid;
 
 final class MovieSessionControllerTest extends WebTestCase
 {
-    private MovieSession $movieSession;
+    public function testIndex(): void
+    {
+        self::ensureKernelShutdown();
+        self::createClient()->request('GET', '/movie');
 
-    private function createMovieSession(): void
+        self::assertResponseIsSuccessful();
+    }
+
+    public function testShow(): void
+    {
+        $movieSession = $this->createMovieSession();
+
+        self::ensureKernelShutdown();
+        self::createClient()->request('GET', sprintf('/movie/%s', $movieSession->getId()));
+
+        self::assertResponseIsSuccessful();
+    }
+
+    private function createMovieSession(): MovieSession
     {
         $movieSession = new MovieSession(
             Uuid::v4(),
@@ -23,7 +39,7 @@ final class MovieSessionControllerTest extends WebTestCase
         );
         $this->getContainer()->get(MovieSessionRepository::class)->save($movieSession);
 
-        $this->movieSession = $movieSession;
+        return $movieSession;
     }
 
     private function createFilm(): Film
@@ -32,25 +48,5 @@ final class MovieSessionControllerTest extends WebTestCase
         $this->getContainer()->get(FilmRepository::class)->save($film);
 
         return $film;
-    }
-
-    public function testIndex(): void
-    {
-        $client = MovieSessionControllerTest::createClient();
-        $client->request('GET', '/movie');
-
-        $this->assertResponseIsSuccessful();
-    }
-
-    public function testShow(): void
-    {
-        $client = MovieSessionControllerTest::createClient();
-
-        $this->createMovieSession();
-        $id = $this->movieSession->getId();
-
-        $client->request('GET', "/movie/${id}");
-
-        $this->assertResponseIsSuccessful();
     }
 }
