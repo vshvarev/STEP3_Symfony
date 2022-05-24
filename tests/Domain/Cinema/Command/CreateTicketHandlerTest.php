@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Uid\Uuid;
 
-final class CreateTicketCommandTest extends WebTestCase
+final class CreateTicketHandlerTest extends WebTestCase
 {
     private MovieSession $movieSession;
 
