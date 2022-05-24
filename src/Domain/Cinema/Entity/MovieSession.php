@@ -28,7 +28,7 @@ class MovieSession
     #[ORM\Column(type: 'integer')]
     private int $maximumCountOfTickets;
 
-    #[ORM\OneToMany(mappedBy: 'movieSession', targetEntity: Ticket::class)]
+    #[ORM\OneToMany(mappedBy: 'movieSession', targetEntity: Ticket::class, cascade: ['persist'])]
     private Collection $tickets;
 
     #[Pure]
@@ -95,5 +95,10 @@ class MovieSession
     public function getTickets(): Collection
     {
         return $this->tickets;
+    }
+
+    public function addTicket(Ticket $ticket)
+    {
+        $this->tickets->add($ticket);
     }
 }
