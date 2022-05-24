@@ -13,19 +13,17 @@ use Symfony\Component\Uid\Uuid;
 
 final class CreateTicketHandlerTest extends WebTestCase
 {
-    private MovieSession $movieSession;
-
     public function testHandle(): void
     {
-        $this->createMovieSession();
+        $movieSession = $this->createMovieSession();
         $messageBus = self::getContainer()->get(MessageBusInterface::class);
 
-        $messageBus->dispatch(new CreateTicketCommand('ClientName', '71234567890', $this->movieSession));
+        $messageBus->dispatch(new CreateTicketCommand('ClientName', '71234567890', $movieSession));
 
-        self::assertEquals(49, $this->movieSession->getCountOfRemainingTickets());
+        self::assertEquals(49, $movieSession->getCountOfRemainingTickets());
     }
 
-    private function createMovieSession(): void
+    private function createMovieSession(): MovieSession
     {
         $movieSession = new MovieSession(
             Uuid::v4(),
@@ -35,7 +33,7 @@ final class CreateTicketHandlerTest extends WebTestCase
         );
         self::getContainer()->get(MovieSessionRepository::class)->save($movieSession);
 
-        $this->movieSession = $movieSession;
+        return $movieSession;
     }
 
     private function createFilm(): Film
