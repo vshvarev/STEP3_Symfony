@@ -17,11 +17,11 @@ final class FilmTest extends TestCase
 
     public function testGetName(): void
     {
-        $this->assertEquals('FilmName', $this->film->getName());
+        self::assertEquals('FilmName', $this->film->getName());
     }
 
     public function testGetDuration(): void
     {
-        $this->assertEquals(120, $this->film->getDuration());
+        self::assertEquals(120, $this->film->getDuration());
     }
 }

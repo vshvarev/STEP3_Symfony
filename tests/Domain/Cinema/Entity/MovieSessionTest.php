@@ -27,41 +27,41 @@ final class MovieSessionTest extends TestCase
 
     public function testGetFormatTimeStart(): void
     {
-        $this->assertEquals('20:00', $this->movieSession->getFormatTimeStart());
+        self::assertEquals('20:00', $this->movieSession->getFormatTimeStart());
     }
 
     public function testGetFormatTimeEnd(): void
     {
-        $this->assertEquals('22:00', $this->movieSession->getFormatTimeEnd());
+        self::assertEquals('22:00', $this->movieSession->getFormatTimeEnd());
     }
 
     public function testGetFilm(): void
     {
-        $this->assertEquals($this->film, $this->movieSession->getFilm());
+        self::assertEquals($this->film, $this->movieSession->getFilm());
     }
 
     public function testGetFormatDateStart(): void
     {
-        $this->assertEquals('22 May 2022', $this->movieSession->getFormatDateStart());
+        self::assertEquals('22 May 2022', $this->movieSession->getFormatDateStart());
     }
 
     public function testGetCountOfRemainingTickets(): void
     {
-        $this->assertEquals(50, $this->movieSession->getMaximumCountOfTickets());
+        self::assertEquals(50, $this->movieSession->getMaximumCountOfTickets());
     }
 
     public function testGetTickets(): void
     {
-        $this->assertCount(0, $this->movieSession->getTickets());
+        self::assertCount(0, $this->movieSession->getTickets());
     }
 
     public function testGetFilmDuration(): void
     {
-        $this->assertEquals(120, $this->movieSession->getFilmDuration());
+        self::assertEquals(120, $this->movieSession->getFilmDuration());
     }
 
     public function testGetMaximumCountOfTickets(): void
     {
-        $this->assertEquals(50, $this->movieSession->getMaximumCountOfTickets());
+        self::assertEquals(50, $this->movieSession->getMaximumCountOfTickets());
     }
 }
