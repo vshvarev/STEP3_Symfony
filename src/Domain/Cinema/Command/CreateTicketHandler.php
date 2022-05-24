@@ -4,26 +4,27 @@ namespace App\Domain\Cinema\Command;
 
 use App\Domain\Cinema\Entity\Client;
 use App\Domain\Cinema\Entity\Ticket;
-use App\Domain\Cinema\Repository\ClientRepository;
-use App\Domain\Cinema\Repository\TicketRepository;
+use App\Domain\Cinema\Repository\MovieSessionRepository;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use Symfony\Component\Uid\Uuid;
 
 final class CreateTicketHandler implements MessageHandlerInterface
 {
     public function __construct(
-        private TicketRepository $ticketRepository,
-        private ClientRepository $clientRepository,
+        private MovieSessionRepository $movieSessionRepository,
     ) {}
 
     public function __invoke(CreateTicketCommand $createTicketCommand): void
     {
+        $movieSession = $createTicketCommand->getMovieSession();
+
         $client = $this->createClient($createTicketCommand);
 
         $ticket = $this->createTicket($createTicketCommand, $client);
 
-        $this->clientRepository->save($client);
-        $this->ticketRepository->save($ticket);
+        $movieSession->addTicket($ticket);
+
+        $this->movieSessionRepository->save($movieSession);
     }
 
     private function createClient(CreateTicketCommand $createTicketCommand): Client

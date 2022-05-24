@@ -13,7 +13,7 @@ class Ticket
     #[ORM\Column(type: 'uuid')]
     private Uuid $id;
 
-    #[ORM\ManyToOne(targetEntity: Client::class)]
+    #[ORM\ManyToOne(targetEntity: Client::class, cascade: ['persist'])]
     private Client $client;
 
     #[ORM\ManyToOne(targetEntity: MovieSession::class, inversedBy: 'tickets')]
